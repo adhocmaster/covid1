@@ -42,7 +42,7 @@ if __name__ == "__main__":
     
     #3. ********************Start****************
     dates = getDateStrings(startDate, endDate)
-    stopDateStr = getTwoDaysLaterString(endDate)
+    stopDateStr = getNDaysLaterString(endDate)
 
     print(f"Search will stop at the first instance on {stopDateStr}")
     initFiles(dates)
