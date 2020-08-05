@@ -51,7 +51,9 @@ if __name__ == "__main__":
 
     print(f"Done: found {len(cachedRows)} unique device ids.") 
     
+
     with open(outputPath, 'w+') as file:
-        file.write("hid,first_date,hasManyDays")
+        file.write("hid,first_date,hasManyDays\n")
         for hid in cachedRows:
-            file.write(f"{hid},{cachedRows[hid][0]},{cachedRows[hid][1]}")
+            file.write(f"{hid},{cachedRows[hid][0]},{cachedRows[hid][1]}\n")
+            
