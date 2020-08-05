@@ -11,6 +11,9 @@ if __name__ == "__main__":
     #1.********************Configuration****************
     args = getArgs()
     
+    if 'inputFile' not in args:
+        raise Exception("You must set an input file path at the end")
+    
     if '--start_date' not in args:
         raise Exception("--start_date not set")
     if '--end_date' not in args:
