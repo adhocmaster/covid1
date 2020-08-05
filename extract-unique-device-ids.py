@@ -10,7 +10,7 @@ if __name__ == "__main__":
 
     #1.********************Configuration****************
     args = getArgs()
-    
+
     if 'inputFile' not in args:
         raise Exception("You must set an input file path at the end")
 
@@ -40,16 +40,18 @@ if __name__ == "__main__":
     cachedRows = {}
     for index, row in df.iterrows():
         if row['hid'] in cachedRows:
-            cachedRows[row['hid']][1] += 1
+            # check if the dates are the same:
+            if cachedRows[row['hid']][0] != row['date']:
+                cachedRows[row['hid']][1] = 1
         else:
-            cachedRows[row['hid']] = [row['date'], 1]
+            cachedRows[row['hid']] = [row['date'], 0]
             if len(cachedRows) % 10000 == 0:
                 print(f"Ongoing: found {len(cachedRows)} unique device ids.") 
-        
+            
 
     print(f"Done: found {len(cachedRows)} unique device ids.") 
     
     with open(outputPath, 'w+') as file:
-        file.write("hid,first_date,count")
+        file.write("hid,first_date,hasManyDays")
         for hid in cachedRows:
             file.write(f"{hid},{cachedRows[hid][0]},{cachedRows[hid][1]}")
