@@ -46,7 +46,7 @@ if __name__ == "__main__":
     stopDateStr = getNDaysLaterString(endDate)
 
     print(f"Search will stop at the first instance on {stopDateStr}")
-    initFiles(dates)
+    initFilesWithGridCols(dates)
 
     # we will caches rows for each date until flushed to files. keys: dates, values: list of rows
     cachedRows = getInitializedCacheRows(dates)
@@ -66,11 +66,11 @@ if __name__ == "__main__":
             
         count += 1
         if count >= flushSize:
-            flushDataToFiles(cachedRows)
+            flushDataToFilesWithGrid(cachedRows)
             print(f"wrote {progress} lines.")
             count = 0
 
-    flushDataToFiles(cachedRows, force=True)
+    flushDataToFilesWithGrid(cachedRows, force=True)
     print(f"wrote {progress} lines.")
             
 
