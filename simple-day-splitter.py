@@ -2,6 +2,8 @@ import sys
 import dask.dataframe as dd
 from datetime import datetime, timedelta
 exec(open("./lib/splitter.py").read())
+exec(open("./lib/tzMap.py").read())
+exec(open("./lib/distance.py").read())
 
 # python simple-day-splitter.py --start_date=2019-12-18 --end_date=2019-12-30 --prefix=out --out_dir=./data/splitted ./data/Santa_Clara_County_Pin_Report_1e6.tsv
 
@@ -39,8 +41,7 @@ if __name__ == "__main__":
     flushThresholdPerDate = 10000 # We will cache rows for a date in memory before writing to the files.
 
     #2. ********************Read data****************
-    df = dd.read_csv(inputFile, sep='\t')
-    df = df.rename(columns=columnNamesMap)
+    df = prepareTSVDF(inputFile)
     
     
     #3. ********************Start****************
@@ -56,6 +57,7 @@ if __name__ == "__main__":
     for index, row in df.iterrows():
         
         if row['date'] in dates:
+            row['tz'] = getTimeZoneId(row['tz'])
             progress = progress + 1
             cachedRows[row['date']].append(row)
             
