@@ -2,6 +2,8 @@
 
 ## Installation:
 1. Install dask
+2. conda install -c conda-forge peewee
+3. conda install -c anaconda psycopg2
 
 ### 1. Simple Day Splitter (simple-day-splitter.py)
 
